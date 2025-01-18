@@ -71,10 +71,37 @@ def play_game():
             break
         
 
-def save_wins():
-    #save the wins to a file
-    with open('wins.txt', 'a') as file:
-        file.write('AI\n')
+def learn_game():
+    #read the wins from the file
+    with open('wins.txt', 'r') as file:
+        wins = file.readlines()
+    #create a dictionary to store the moves
+    moves = {}
+    #iterate over the wins
+    for win in wins:
+        #split the win into a list of moves
+        win = win.strip()
+        win = win.split(',')
+        #iterate over the moves
+        for i in range(len(win) - 1):
+            #get the current move
+            current_move = win[i]
+            #get the next move
+            next_move = win[i + 1]
+            #check if the current move is in the dictionary
+            if current_move in moves:
+                #check if the next move is in the dictionary
+                if next_move in moves[current_move]:
+                    #increment the count of the next move
+                    moves[current_move][next_move] += 1
+                else:
+                    #add the next move to the dictionary
+                    moves[current_move][next_move] = 1
+            else:
+                #add the current move to the dictionary
+                moves[current_move] = {next_move: 1}
+    #return the dictionary
+    return moves
 #play the game
 
 play_game() 
