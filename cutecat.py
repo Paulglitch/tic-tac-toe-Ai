@@ -69,7 +69,11 @@ def play_game():
         if check_full(board):
             print('It\'s a tie!')
             break
-        
+            
+def save_wins():
+    #save the wins to a file
+    with open('wins.txt', 'a') as file:
+        file.write('AI\n')        
 
 def learn_game():
     #read the wins from the file
